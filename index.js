@@ -11,34 +11,34 @@ fundButton.onclick = fund
 balanceButton.onclick = getBalance
 
 async function connect() {
-  if (typeof window.ethereum !== "undefined") {
+  if (typeof window.ethereum !== "undefined") { // Checks if client has Metamask
     try {
-      await ethereum.request({ method: "eth_requestAccounts" })
+      await ethereum.request({ method: "eth_requestAccounts" }) // Requests for account signing, ie, a MetaMask pop-up (under the hood: An array of a single, hexadecimal Ethereum address string.)
     } catch (error) {
       console.log(error)
     }
-    connectButton.innerHTML = "Connected"
-    const accounts = await ethereum.request({ method: "eth_accounts" })
+    connectButton.innerHTML = "Connected" // Changes the button's content to Connected if an error is not thrown
+    const accounts = await ethereum.request({ method: "eth_accounts" }) //  Returns a list of addresses owned by client.
     console.log(accounts)
   } else {
-    connectButton.innerHTML = "Please install MetaMask"
+    connectButton.innerHTML = "Please install MetaMask" // If no Metamask is detected
   }
 }
 
 async function withdraw() {
   console.log(`Withdrawing...`)
-  if (typeof window.ethereum !== "undefined") {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+  if (typeof window.ethereum !== "undefined") { // Checks if client has Metamask
+    const provider = new ethers.providers.Web3Provider(window.ethereum) // similar to a RPC provider, acts like a provider
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, abi, signer)
     try {
       const transactionResponse = await contract.withdraw()
-      await listenForTransactionMine(transactionResponse, provider)
+      await listenForTransactionMine(transactionResponse, provider) // returns a promise (either resolved or rejected)
     } catch (error) {
       console.log(error)
     }
   } else {
-    withdrawButton.innerHTML = "Please install MetaMask"
+    withdrawButton.innerHTML = "Please install MetaMask" // If client does not have metamask
   }
 }
 
