@@ -1,5 +1,5 @@
-export const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-export const abi = [
+export const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512" // Address for contract in index.js
+export const abi = [ // ABI for contract in index.js - derived from artifacts>fundme
   {
     inputs: [
       {
