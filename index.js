@@ -13,7 +13,7 @@ balanceButton.onclick = getBalance
 async function connect() {
   if (typeof window.ethereum !== "undefined") { // Checks if client has Metamask
     try {
-      await ethereum.request({ method: "eth_requestAccounts" }) // Requests for account signing, ie, a MetaMask pop-up (under the hood: An array of a single, hexadecimal Ethereum address string.)
+      await ethereum.request({ method: "eth_requestAccounts" }) // Requests for account signing -a Metamask pop-up (under the hood: An array of a single, hexadecimal Ethereum address string.)
     } catch (error) {
       console.log(error)
     }
@@ -28,12 +28,12 @@ async function connect() {
 async function withdraw() {
   console.log(`Withdrawing...`)
   if (typeof window.ethereum !== "undefined") { // Checks if client has Metamask
-    const provider = new ethers.providers.Web3Provider(window.ethereum) // similar to a RPC provider, acts like a provider
+    const provider = new ethers.providers.Web3Provider(window.ethereum) // Similar to a RPC provider, acts like a provider
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, abi, signer)
     try {
       const transactionResponse = await contract.withdraw()
-      await listenForTransactionMine(transactionResponse, provider) // returns a promise (either resolved or rejected)
+      await listenForTransactionMine(transactionResponse, provider) // Returns a promise (either resolved or rejected)
     } catch (error) {
       console.log(error)
     }
